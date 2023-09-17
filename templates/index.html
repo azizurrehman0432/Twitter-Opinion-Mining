@@ -1,0 +1,634 @@
+{% load static %}
+<!DOCTYPE html>
+
+
+<html lang="en">
+<link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+<script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
+<head>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=STIX+Two+Math&display=swap');
+
+        .content {
+            width: 100%;
+            padding-top: 4%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+
+        .boxes {
+            border-radius: 50px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            width: 285px;
+            max-height: available;
+            display: compact;
+            flex-direction: column-reverse;
+            margin: 10px;
+            align-items: center;
+            transition: 300ms all;
+            background-size: cover;
+            background-position: center;
+            transform: scale(1);
+            background-color: #ffffff;
+
+        }
+
+        .boxes:hover {
+            transform: scale(1.01);
+        }
+
+        .box-content {
+            padding: 0px 0px 0px 0px;
+            text-align: center;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .check {
+            position: absolute;
+            font-size: 10px;
+            padding: 0px 3px;
+            border-radius: 15px;
+            background: #39c5f3;
+            color: white;
+            left: 73px;
+            top: 73px;
+        }
+
+        .twitter {
+            border-radius: 100%;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: -8px;
+            left: -9px;
+            width: 50px;
+            height: 50px;
+            background-position: center;
+            background-color: #ffffff;
+        }
+
+        .emoji {
+            position: absolute;
+            left: 232px;
+            top: 14px;
+        }
+
+        .emoji:hover {
+            transform: scale(1.2);
+        }
+
+        .link:hover {
+            transform: scale(1.1);
+        }
+
+        .like:hover {
+            transform: scale(1.1);
+        }
+
+        .comment:hover {
+            transform: scale(1.1);
+        }
+
+        .share:hover {
+            transform: scale(1.1);
+        }
+
+        .t1 {
+            position: relative;
+            display: inline-block;
+            transition: ease-in-out 0.3s;
+        }
+
+        .t1 .t2 {
+            font-size: 15px;
+            visibility: hidden;
+            width: max-content;
+            height: max-content;
+            border-radius: 10px;
+            background-color: #39c5f3;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            padding: 2px 3px;
+            /* Position the tooltip */
+            position: absolute;
+            margin-left: -30px;
+            margin-top: -25px;
+            transition: ease-in-out 0.3s;
+        }
+
+        .t1:hover .t2 {
+            transition: ease-in-out 0.3s;
+            visibility: visible;
+        }
+
+        .loader_container {
+            align-items: center;
+
+            display: flex;
+            justify-content: center;
+            min-height: 70vh;
+            visibility: hidden;
+        }
+
+        .loader {
+
+            animation: rotate 1s infinite;
+            height: 50px;
+            width: 50px;
+
+        }
+
+        .loader_container.display {
+            visibility: visible;
+        }
+
+        .loader:before,
+        .loader:after {
+            border-radius: 50%;
+            content: '';
+            display: block;
+            height: 20px;
+            width: 20px;
+        }
+
+        .loader:before {
+            animation: ball1 1s infinite;
+            background-color: #cb2025;
+            box-shadow: 30px 0 0 #f8b334;
+            margin-bottom: 10px;
+        }
+
+        .loader:after {
+            animation: ball2 1s infinite;
+            background-color: #00a096;
+            box-shadow: 30px 0 0 #97bf0d;
+        }
+
+        @keyframes rotate {
+            0% {
+                -webkit-transform: rotate(0deg) scale(0.8);
+                -moz-transform: rotate(0deg) scale(0.8);
+            }
+            50% {
+                -webkit-transform: rotate(360deg) scale(1.2);
+                -moz-transform: rotate(360deg) scale(1.2);
+            }
+            100% {
+                -webkit-transform: rotate(720deg) scale(0.8);
+                -moz-transform: rotate(720deg) scale(0.8);
+            }
+        }
+
+        @keyframes ball1 {
+            0% {
+                box-shadow: 30px 0 0 #f8b334;
+            }
+            50% {
+                box-shadow: 0 0 0 #f8b334;
+                margin-bottom: 0;
+                -webkit-transform: translate(15px, 15px);
+                -moz-transform: translate(15px, 15px);
+            }
+            100% {
+                box-shadow: 30px 0 0 #f8b334;
+                margin-bottom: 10px;
+            }
+        }
+
+        .preloader {
+            align-items: center;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            left: 0;
+            position: fixed;
+            top: 0;
+            transition: opacity 0.3s linear;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        @keyframes ball2 {
+            0% {
+                box-shadow: 30px 0 0 #97bf0d;
+            }
+            50% {
+                box-shadow: 0 0 0 #97bf0d;
+                margin-top: -20px;
+                -webkit-transform: translate(15px, 15px);
+                -moz-transform: translate(15px, 15px);
+            }
+            100% {
+                box-shadow: 30px 0 0 #97bf0d;
+                margin-top: 0;
+            }
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .xyz {
+            display: none;!important;
+        }
+
+
+        .button-10 {
+            margin-top: 10px;
+            margin-bottom:10px ;
+            margin-left: 1px;
+            padding: 6px 14px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            border-radius: 6px;
+            border: none;
+            color: #fff;
+            background: linear-gradient(180deg, #4B91F7 0%, #7395ee 100%);
+            background-origin: border-box;
+            box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .button-10:focus {
+            box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+            outline: 0;
+        }
+
+        #areachart {
+            max-width: 1300px;
+            margin: 35px auto;
+        }
+    </style>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <link href="{% static 'assets/jqvmap-master/dist/jqvmap.css' %}" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/jqvmap-master/dist/jquery.vmap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/jqvmap-master/dist/maps/jquery.vmap.world.js' %}" charset="utf-8"></script>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"
+            defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Math&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <!-- App Favicon -->
+    <link rel="shortcut icon" src="{% static 'assets/images/favicon.ico' %}">
+
+    <!-- App title -->
+    <title>Results Page</title>
+
+
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+
+    <!-- App CSS -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" type="text/css"/>
+
+    <!-- Modernizr js -->
+
+
+</head>
+
+<body>
+<button class="xyz button-10" onclick="back()">search again</button>
+<div  class="row">
+    <div style="align-content: center" class="col-lg-12 col-xl-12">
+        <div id="graph" class="card-box xyz">
+            <h4 class="header-title text-center m-t-0 m-b-20" style="font-family:'STIX Two Math', serif;"><strong>Sentiment Analysis Graph</strong></h4>
+
+            <div id="areachart">
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="content">
+</div>
+<!-- content -->
+
+<div class="preloader">
+    <img src="static/spinner.svg" , alt="spinner">
+</div>
+
+<script>
+    function back() {
+        window.location = "../"
+    }
+
+    const graph=document.querySelector("#graph")
+    const button = document.querySelector(".xyz");
+
+    function displaybutton() {
+        button.classList.remove("xyz");
+        graph.classList.remove("xyz");
+    }
+
+    const loader = document.querySelector(".preloader");
+
+    // showing loading
+    function displayLoading() {
+        loader.classList.add("display");
+
+    }
+
+    // hiding loading
+    function hideLoading() {
+        loader.classList.add("hide");
+    }
+
+    displayLoading()
+
+    fetch('cards')
+        .then(response => response.json())
+        .then(result => {
+                displaybutton()
+                hideLoading()
+                var positive = JSON.parse(result["positive"]);
+                var negative = JSON.parse(result["negative"]);
+                var neutral = JSON.parse(result["neutral"]);
+                val=[]
+                lab=[]
+                plab = []
+                pval = []
+                nlab = []
+                nval = []
+                neulab = []
+                neuval = []
+
+                $.each(positive, function (key, value) {
+                    plab.push(value["label"]);
+                    pval.push(value["value"]);
+                });
+                $.each(negative, function (key, value) {
+                    nlab.push(value["label"]);
+                    nval.push(value["value"]);
+                });
+                $.each(neutral, function (key, value) {
+                    neulab.push(value["label"]);
+                    neuval.push(value["value"]);
+                });
+                var options = {
+                    chart: {
+                        height: 400,
+                        type: "area",
+                        stacked: true,
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    series: [
+                        {
+                            name: "Postive",
+                            data: pval,
+                            color:'#90ee90'
+                        },{
+                            name: "Neutral",
+                            data: neuval,
+                            color:'#FFFF00'
+                        },{
+                            name: "Negative",
+                            data: nval,
+                            color:'#FF0000'
+                        },
+                    ],
+
+                    fill: {
+                        type: "gradient",
+                        fillColor: '#b78ffe',
+                    },
+                    stroke: {
+                        color: '#0D47A1',
+                        curve: 'smooth',
+                        opacity: 0.4,
+                        width: 2,
+                    },
+                    toolbar: {
+                        show: false
+                    },
+                    selection: {
+                        enabled: false
+                    },
+                    xaxis: {
+                    categories: plab,
+                }
+
+        
+                };
+                var chart = new ApexCharts(document.querySelector("#areachart"), options);
+                chart.render();
+
+
+                {#<--Cards-->#}
+
+
+
+                var json_data5 = JSON.parse(result["cards"]);
+                namearray = []
+                tweetarray = []
+                linkarray = []
+                replies = []
+                likes = []
+                datearray = []
+                sentimentarray = []
+                retweets = []
+                picurl = []
+                timeval = []
+                var timeval = JSON.parse(result["time"])
+
+                for (data in json_data5) {
+                    {#picurl.push(json_data5[data]["profile_image_url_https"]);#}
+                    namearray.push(json_data5[data]["name"]);
+                    tweetarray.push(json_data5[data]["tweet"]);
+                    datearray.push(json_data5[data]["date"]);
+                    sentimentarray.push(json_data5[data]["sentiment"]);
+                    linkarray.push(json_data5[data]["link"]);
+                    replies.push(json_data5[data]["nreplies"]);
+                    likes.push(json_data5[data]["nlikes"]);
+                    retweets.push(json_data5[data]["nretweets"]);
+                }
+                {#<div class="container my-4">#}
+                {#    <p><strong>Detailed documentation and more examples of Bootstrap Charts you can find in our <a href="https://mdbootstrap.com/docs/jquery/javascript/charts/"#}
+                {#          target="_blank">Bootstrap Charts Docs</a>.</p>#}
+                {##}
+                {#    <hr class="my-4">#}
+                {##}
+                {#    <div>#}
+                {#        <canvas id="lineChart"></canvas>#}
+                {#    </div>#}
+                {##}
+                {#  </div>#}
+                {#        var ctxL = document.getElementById("lineChart").getContext('2d');#}
+                {#        var myLineChart = new Chart(ctxL, {#}
+                {#    type: 'line',#}
+                {#    data: {#}
+                {#      labels: datearray,#}
+                {#      datasets: [{#}
+                {#          label: "Dates",#}
+                {#          data: sentimentarray,#}
+                {#          backgroundColor: [#}
+                {#            'rgba(105, 0, 132, .2)',#}
+                {#          ],#}
+                {#          borderColor: [#}
+                {#            'rgba(200, 99, 132, .7)',#}
+                {#          ],#}
+                {#          borderWidth: 2#}
+                {#        },#}
+                {##}
+                {#      ]#}
+                {#    },#}
+                {#    options: {#}
+                {#      responsive: true#}
+                {#    }#}
+                {#  });#}
+                var dynamic = document.querySelector('.content');
+                for (var i = 0; i < tweetarray.length; i++) {
+                    if (sentimentarray[i] == 'Positive') {
+                        var fetch = document.querySelector('.content').innerHTML;
+                        dynamic.innerHTML = `<div id="cards${i}" class="boxes">
+                        <span class="emoji"><box-icon name='smile' type='solid' color='#90ee90' ></box-icon></span>
+                      <div class="twitter"><i class='fa fa-twitter' style='color:#39c5f3;font-size: 30px;padding: 9px'></i></div>
+                          <div class="card-body">
+                           <div class="card-body border-bottom d-flex flex-row">
+                            <div style="margin-left: 10px">
+                              <h6 class="card-title font-weight-bold mb-2">${namearray[i]}</h6>
+                              <p class="card-text"><i class="fa fa-calendar-check-o pe-2"></i>${datearray[i]}</p>
+                            </div>
+                            </div>
+                          </div>
+                     <div style="margin-left: 18px;margin-right: 18px">
+                    <p style="text-align: justify; font-size: 13px;font-family: Roboto;">${tweetarray[i]}</p>
+                    <hr>
+                    <div style="display: inline-flex">
+                <div><b><a href="${linkarray[i]}"><i class="fa fa-link link" style="font-size: 20px;color: #0b0b0b"></i></a></b></div>
+<div class="t1" style="font-size: 20px;margin-left: 35px;color: #39c5f3"><i class="fa fa-heart like" ></i><span class="t2">${likes[i]}</span></div>
+<div class="t1" style="font-size: 20px;margin-left: 43px;color: #39c5f3"><i class="fa fa-comment comment" ></i><span class="t2">${replies[i]}</span></div>
+<div class="t1" style="font-size: 20px;margin-left: 44px;color: #39c5f3"><i class="fa fa-reply share" ></i><span class="t2">${retweets[i]}</span></div>
+                   </div>
+                    <div style="display:inline-flex;">
+                    <div style="margin-left: 50px;font-family:Arial, sans-serif;font-size: 12px">Likes</div>
+                    <div style="margin-left: 28px;font-family:Arial, sans-serif;font-size: 12px">Replies</div>
+                    <div style="margin-left: 23px;font-family:Arial, sans-serif;font-size: 12px">Retweets</div>
+                    </div>
+                    <br>
+                    <br>
+                    </div>
+                    </div>` + fetch;
+                    } else if (sentimentarray[i] == 'Negative') {
+                        var fetch = document.querySelector('.content').innerHTML;
+                        dynamic.innerHTML = `<div id="cards${i}" class="boxes">
+                        <span class="emoji"><box-icon name='sad' type='solid' color='#8b0000' ></box-icon></span>
+                      <div class="twitter"><i class='fa fa-twitter' style='color:#39c5f3;font-size: 30px;padding: 9px'></i></div>
+                          <div class="card-body">
+                           <div class="card-body border-bottom d-flex flex-row">
+                            <div style="margin-left: 10px">
+                              <h5 class="card-title font-weight-bold mb-2">${namearray[i]}</h5>
+                              <p class="card-text"><i class="fa fa-calendar-check-o pe-2"></i>${datearray[i]}</p>
+                            </div>
+                            </div>
+                          </div>
+                     <div style="margin-left: 22px;margin-right: 22px">
+                    <p style="text-align: justify; font-size: 13px;font-family: Roboto;">${tweetarray[i]}</p>
+                    <hr>
+                    <div style="display: inline-flex">
+                   <div><b><a href="${linkarray[i]}"><i class="fa fa-link link" style="font-size: 20px;color: #0b0b0b"></i></a></b></div>
+                   <div class="t1" style="font-size: 20px;margin-left: 35px;color: #39c5f3"><i class="fa fa-heart like" ></i><span class="t2">${likes[i]}</span></div>
+                   <div class="t1" style="font-size: 20px;margin-left: 43px;color: #39c5f3"><i class="fa fa-comment comment" ></i><span class="t2">${replies[i]}</span></div>
+                   <div class="t1" style="font-size: 20px;margin-left: 44px;color: #39c5f3"><i class="fa fa-reply share" ></i><span class="t2">${retweets[i]}</span></div>
+                   </div>
+                    <div style="display:inline-flex;">
+                    <div style="margin-left: 50px;font-family:Arial, sans-serif;font-size: 12px">Likes</div>
+                    <div style="margin-left: 28px;font-family:Arial, sans-serif;font-size: 12px">Replies</div>
+                    <div style="margin-left: 23px;font-family:Arial, sans-serif;font-size: 12px">Retweets</div>
+                    </div>
+                    <br>
+                    <br>
+                    </div>
+                    </div>` + fetch;
+                    } else if (sentimentarray[i] == 'Neutral') {
+                        var fetch = document.querySelector('.content').innerHTML;
+                        dynamic.innerHTML = `<div id="cards${i}" class="boxes">
+                        <span class="emoji"><box-icon name='meh' type='solid' color='#ffff31' ></box-icon></span>
+                      <div class="twitter"><i class='fa fa-twitter' style='color:#39c5f3;font-size: 30px;padding: 9px'></i></div>
+                          <div class="card-body">
+                           <div class="card-body border-bottom d-flex flex-row">
+                            <div style="margin-left: 10px">
+                              <h5 class="card-title font-weight-bold mb-2">${namearray[i]}</h5>
+                              <p class="card-text"><i class="fa fa-calendar-check-o pe-2"></i>${datearray[i]}</p>
+                            </div>
+                            </div>
+                          </div>
+                     <div style="margin-left: 22px;margin-right: 22px">
+                    <p style="text-align: justify; font-size: 13px;font-family: Roboto;">${tweetarray[i]}</p>
+                    <hr>
+                    <div style="display: inline-flex">
+                   <div><b><a href="${linkarray[i]}"><i class="fa fa-link link" style="font-size: 20px;color: #0b0b0b"></i></a></b></div>
+                   <div class="t1" style="font-size: 20px;margin-left: 35px;color: #39c5f3"><i class="fa fa-heart like" ></i><span class="t2">${likes[i]}</span></div>
+                   <div class="t1" style="font-size: 20px;margin-left: 43px;color: #39c5f3"><i class="fa fa-comment comment" ></i><span class="t2">${replies[i]}</span></div>
+                   <div class="t1" style="font-size: 20px;margin-left: 44px;color: #39c5f3"><i class="fa fa-reply share" ></i><span class="t2">${retweets[i]}</span></div>
+                   </div>
+                    <div style="display:inline-flex;">
+                    <div style="margin-left: 50px;font-family:Arial, sans-serif;font-size: 12px">Likes</div>
+                    <div style="margin-left: 28px;font-family:Arial, sans-serif;font-size: 12px">Replies</div>
+                    <div style="margin-left: 23px;font-family:Arial, sans-serif;font-size: 12px">Retweets</div>
+                    </div>
+                    <br>
+                    <br>
+                    </div>
+                    </div>` + fetch;
+                    }
+                }
+            }
+        )
+
+
+</script>
+<script>
+    var resizefunc = [];
+</script>
+
+
+<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/detect.js' %}"></script>
+<script src="{% static 'assets/js/fastclick.js' %}"></script>
+<script src="{% static 'assets/js/jquery.blockUI.js' %}"></script>
+<script src="{% static 'assets/js/waves.js' %}"></script>
+<script src="{% static 'assets/js/jquery.nicescroll.js' %}"></script>
+<script src="{% static 'assets/js/jquery.scrollTo.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.slimscroll.js' %}"></script>
+
+
+<!-- Page specific js -->
+<script src="{% static 'assets/pages/jquery.dashboard.js' %}"></script>
+
+<!-- App js -->
+<script src="{% static 'assets/js/jquery.core.js' %}"></script>
+<script src="{% static 'assets/js/jquery.app.js' %}"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.12.0/css/ol.css"
+      type="text/css">
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.12.0/build/ol.js"></script>
+
+{#        map script#}
+</body>
+
+</html>

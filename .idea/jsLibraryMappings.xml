@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$" libraries="{apexcharts, boxicons, datatables, echarts, jquery, jquery-1.11.3, jquery-3.3.1.slim, jquery.dataTables, materialdesignicons, morris, ol, popper.js, raphael}" />
+  </component>
+</project>

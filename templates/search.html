@@ -1,0 +1,242 @@
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block body %}#}
+{##}
+{#    <div class="container" style="margin-top:10px;">#}
+{#       <form class="d-flex" action = "" method = "post">#}
+{#             {% csrf_token %}#}
+{#         <input class="form-control me-4" id="search" type="text" name="search" placeholder="Search Keyword Here">#}
+{#         <input class="btn btn-primary" type="submit" value="OK">#}
+{#       </form>#}
+{#     <br><br>#}
+{#    </div>#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#{% endblock body %}#}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweets Analysis System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style>
+
+
+        @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: #29ffea;
+        }
+
+        .search {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border-radius: 60px;
+            transition: 0.5s;
+            box-shadow: 0 0 0 5px #FFFFFF;
+            overflow: hidden;
+        }
+
+        .search.active {
+            width: 360px;
+
+        }
+
+        .search .icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 60px;
+            background: #29ffea;
+            border-radius: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+
+        }
+
+        .search .icon::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 3px solid #000000;
+            border-radius: 50%;
+            transform: translate(-4px, -4px);
+        }
+
+        .search .icon::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 12px;
+            background: #000000;
+            transform: translate(6px, 6px) rotate(315deg);
+        }
+
+        .search .input {
+            position: relative;
+            width: 300px;
+            height: 60px;
+            left: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search .input input {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            padding: 10px 0;
+        }
+
+        .clear {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            right: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .clear::before {
+            position: absolute;
+            content: '';
+            width: 1px;
+            height: 15px;
+            background: #999;
+            transform: rotate(45deg);
+        }
+
+        .clear::after {
+            position: absolute;
+            content: '';
+            width: 1px;
+            height: 15px;
+            background: #999;
+            transform: rotate(315deg);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container" style="margin-top: 10px">
+              <div class="row"style="padding: 10px;  display: flex; justify-content: center"">
+
+                  <img style=""  height="250px" width="250px" src="{% static 'twitter-icon-circle-logo-400x400.png' %}">
+
+
+
+              </div>
+     <div class="row"style="padding: 10px; display: flex; justify-content: center">
+
+
+                  <h4 style=" font-size:1.5em; color: #000000; align-content: center;  padding-bottom: 10px">Tweets Analysis System</h4>
+
+
+              </div>
+</div>
+
+
+
+
+    <form class="test" method="post" action="">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 10px;">
+            <input class="form-control" name="a" type="text" style="color: #000000;" placeholder="Search Keyword" id="a">
+            </div>
+        <div style="margin-bottom: 10px;">
+            <input class="form-control" type="text" id="b" placeholder="From Date: YYYY-MM-DD" name="b" />
+        </div>
+        <div style="margin-bottom: 10px;">
+            <input class="form-control" type="text" id="c" placeholder="To Date: YYYY-MM-DD" name="c" />
+        </div>
+{#        <div style="margin-bottom: 10px;">#}
+{#            <input class="form-control" type="text" id="d" placeholder="Set Data Limit" name="d" />#}
+{#        </div>#}
+        <div class="icon"></div>
+        <div style="display: flex; justify-content: center"><input  type="submit" value="Send" class="submit-btn btn btn-primary" /></div>
+
+{#        <span class="clear" onclick="document.getElementById('mysearch').value = ''"></span>#}
+{#        <span class="clear" onclick="document.getElementById('b').value = ''"></span>#}
+{#        <span class="clear" onclick="document.getElementById('c').value = ''"></span>#}
+    </form>
+
+{#<br>#}
+{#<form method="post" action="">#}
+{#    {% csrf_token %}#}
+{#    <label for="name">From Date </label>#}
+{#    <input type="text" id="fromD" placeholder="YYYY-MM-DD" name="b" />#}
+{#     <span class="clear" onclick="document.getElementById('fromD').value = ''"></span>#}
+{#</form>#}
+{#<br>#}
+{#<form method="post" action="">#}
+{#    {% csrf_token %}#}
+{#    <label for="name">To Date </label>#}
+{#    <input type="text" id="toD" placeholder="YYYY-MM-DD" name="c" />#}
+{#    <span class="clear" onclick="document.getElementById('toD').value = ''"></span>#}
+{#</form>#}
+
+{#<button type="button">Click Me!</button>#}
+
+
+{#<script>#}
+{##}
+{#    let form = new FormData();#}
+{#    let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;#}
+{#    form.append("a", document.querySelector("#mysearch").value);#}
+{#    let request = new Request("{% url 'abc' %}", {method: 'POST',#}
+{#                                                      body: form,#}
+{#                                                      headers: {"X-CSRFToken": csrfTokenValue}#}
+{#                                                     })#}
+{##}
+{#</script>#}
+
+
+<script>
+    const icon = document.querySelector('.icon');
+    {#const search = document.querySelector('.test');#}
+    {#icon.onclick = function () {#}
+    {#    search.classList.toggle('active')#}
+    {#}#}
+</script>
+
+</body>
+</html>
