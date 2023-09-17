@@ -1,6 +1,6 @@
 
 # Twitter Opinion Mining , Twint, BERT, Django
-The Real-Time Twitter Sentiment Analysis project is a comprehensive system that leverages Twint for data collection, BERT for natural language processing, Django for the backend, and a custom-built GUI for sentiment analysis, Twitter card representation, and time interval analytics. This project aims to provide valuable insights into public opinions expressed on Twitter, allowing users to explore sentiment trends over time.
+The Real-Time Twitter Sentiment Analysis project is a system that uses Twint for data collection, BERT for natural language processing, Django for the backend, and a custom-built GUI for sentiment analysis, Twitter card representation, and time interval analytics. This project aims to provide valuable insights into public opinions expressed on Twitter, allowing users to explore sentiment trends over time.
 
 
 ## Features
